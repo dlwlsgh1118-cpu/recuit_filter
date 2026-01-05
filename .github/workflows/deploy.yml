@@ -16,7 +16,7 @@ jobs:
         key: ${{ secrets.KEY }}
         script: |
           # 1. 프로젝트 폴더로 이동 (폴더명 본인 것으로 수정 필수!)
-          cd /home/ubuntu/recurit_filter
+          cd /home/ubuntu/recuit_filter
 
           # 2. 최신 코드 가져오기
           git pull https://github.com/dlwlsgh1118-cpu/recuit_filter.git main
