@@ -32,3 +32,4 @@ jobs:
           # 5. 백그라운드에서 다시 실행 (nohup 사용)
           # nohup: 터미널 꺼도 안 죽게 함 / > /dev/null: 로그 화면에 안 뿌림
           nohup streamlit run app.py > output.log 2>&1 &
+          sleep 2  # 서버가 켜질 시간 2초 확보
