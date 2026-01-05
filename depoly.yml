@@ -1,0 +1,34 @@
+name: Deploy to Ubuntu Server
+
+on:
+  push:
+    branches: [ main ]  # main 브랜치에 푸시될 때 실행
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+    - name: Executing remote ssh commands
+      uses: appleboy/ssh-action@master
+      with:
+        host: ${{ secrets.HOST }}
+        username: ${{ secrets.USERNAME }}
+        key: ${{ secrets.KEY }}
+        script: |
+          # 1. 프로젝트 폴더로 이동 (폴더명 본인 것으로 수정 필수!)
+          cd /home/ubuntu/recurit_filter
+
+          # 2. 최신 코드 가져오기
+          git pull origin main
+
+          # 3. 가상환경 켜기 & 패키지 업데이트
+          source venv/bin/activate
+          pip install -r requirements.txt
+
+          # 4. 기존에 켜진 스트림릿 끄기 (재시작을 위해)
+          # pkill -f streamlit 명령은 실행 중인 모든 streamlit을 종료합니다.
+          pkill -f streamlit || true
+
+          # 5. 백그라운드에서 다시 실행 (nohup 사용)
+          # nohup: 터미널 꺼도 안 죽게 함 / > /dev/null: 로그 화면에 안 뿌림
+          nohup streamlit run app.py > output.log 2>&1 &
