@@ -16,7 +16,7 @@ jobs:
         key: ${{ secrets.KEY }}
         script: |
           # 1. 프로젝트 폴더로 이동 (폴더명 본인 것으로 수정 필수!)
-          cd /home/ubuntu/recuit_filter
+          cd /home/ubuntu/recurit_filter
 
           # 2. 최신 코드 가져오기
           git pull https://github.com/dlwlsgh1118-cpu/recuit_filter.git main
@@ -32,4 +32,4 @@ jobs:
           # 5. 백그라운드에서 다시 실행 (nohup 사용)
           # nohup: 터미널 꺼도 안 죽게 함 / > /dev/null: 로그 화면에 안 뿌림
           nohup streamlit run app.py > output.log 2>&1 &
-          sleep 2  # 서버가 켜질 시간 2초 확보
+          sleep 2
