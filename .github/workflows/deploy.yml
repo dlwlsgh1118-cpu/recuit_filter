@@ -25,11 +25,7 @@ jobs:
           # 기존 서버 끄기
           pkill -f streamlit || true
           
-          # ★★★ 여기가 핵심 변경 사항 ★★★
-          # < /dev/null : "입력할 거 없으니까 귀 닫아!" (입력 스트림 차단)
-          # disown : "얘는 이제 내 자식 아님!" (쉘 종료되어도 따라 죽지 않게 족보 파기)
-          nohup streamlit run app.py --server.headless true --browser.gatherUsageStats false > output.log 2>&1 < /dev/null &
-          disown
+          setsid nohup streamlit run app.py --server.headless true --browser.gatherUsageStats false > output.log 2>&1 < /dev/null &
           
           echo "Deployment successful!"
           exit 0
