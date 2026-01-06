@@ -14,19 +14,19 @@ jobs:
         host: ${{ secrets.HOST }}
         username: ${{ secrets.USERNAME }}
         key: ${{ secrets.KEY }}
-        command_timeout: 2m
+        # timeout 설정 삭제 (기본값 사용)
         script: |
           cd /home/ubuntu/recuit_filter
           
+          # 1. 최신 코드 (방금 올린 deploy.sh 포함) 가져오기
           git pull https://github.com/dlwlsgh1118-cpu/recuit_filter.git main
           
+          # 2. 모듈 설치
           source venv/bin/activate
           pip install -r requirements.txt
           
-          # 기존 서버 끄기
-          pkill -f streamlit || true
+          # 3. 스크립트 실행 권한 주기 (이거 중요!)
+          chmod +x deploy.sh
           
-          setsid nohup streamlit run app.py --server.headless true --browser.gatherUsageStats false > output.log 2>&1 < /dev/null &
-          
-          echo "Deployment successful!"
-          exit 0
+          # 4. 아까 만든 스크립트 실행 (복잡한 건 얘가 알아서 함)
+          bash deploy.sh
