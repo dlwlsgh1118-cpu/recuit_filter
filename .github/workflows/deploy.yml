@@ -17,7 +17,7 @@ jobs:
         script: |
           cd /home/ubuntu/recuit_filter
           
-          git pull origin main
+          git pull https://github.com/dlwlsgh1118-cpu/recuit_filter.git main
           
           source venv/bin/activate
           pip install -r requirements.txt
