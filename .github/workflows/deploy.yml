@@ -27,9 +27,12 @@ jobs:
 
           # 4. 기존 서버 죽이기
           pkill -f streamlit || true
+          
 
           # 5. 서버 켜고 연결 끊기 (nohup ... & 만으로는 부족할 때가 있음)
           # 입력/출력을 완전히 끊어서 깃허브가 기다리지 않게 함
+          # --server.headless true : 화면 없는 서버 모드로 켜라
+          # --browser.gatherUsageStats false : 이메일 묻지 말고 통계 수집도 하지 마라
           nohup streamlit run app.py > output.log 2>&1 &
           
           # 6. 서버가 켜질 시간 잠시 대기
